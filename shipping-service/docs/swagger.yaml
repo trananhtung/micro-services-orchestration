@@ -1,0 +1,97 @@
+definitions:
+  main.Shipment:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      order_id:
+        type: integer
+      status:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /shipments:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Shipment'
+            type: array
+      summary: List all shipments
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Shipment info
+        in: body
+        name: shipment
+        required: true
+        schema:
+          $ref: '#/definitions/main.Shipment'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Shipment'
+      summary: Create a new shipment
+  /shipments/{id}:
+    get:
+      parameters:
+      - description: Shipment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Shipment'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get shipment by ID
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Shipment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Shipment info
+        in: body
+        name: shipment
+        required: true
+        schema:
+          $ref: '#/definitions/main.Shipment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Shipment'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update shipment status
+swagger: "2.0"
